@@ -1,0 +1,222 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.distributedservices.flights";
+option java_outer_classname = "FlightProto";
+option objc_class_prefix = "Flight";
+
+package Flight;
+
+// The greeting service definition.
+service Flights {
+  // Sends a greeting
+  rpc GetFlightsList (GetFlightsRequest) returns (GetFlightsResponse) {}
+}
+
+// The request message containing the user's name.
+message GetFlightsRequest {
+  string OriginCode = 1;
+  string DestinationCode = 2;
+  string DepartureDate = 3;
+  int32 AdultCount = 4;
+  int32 ChildCount = 5;
+  int32 InfantCount = 6;
+  int32 PageNumber = 7;
+  int32 PageSize = 8;
+}
+
+// The response message containing the greetings
+message GetFlightsResponse {
+
+  message META {
+
+    message ROUTESINFO {
+
+      message ROUTE {
+         string persianTitle = 1;
+         string englishTitle = 2;
+         string iataCode = 3;
+         double latitude = 4;
+         double longitude = 5;
+         bool isInternational = 6;
+      }
+
+       ROUTE origin = 1;
+
+       ROUTE destination = 2;
+    }
+
+    repeated ROUTESINFO routesInfo = 1;
+
+    message AIRLINES {
+       string iataCode = 1;
+       string persianTitle = 2;
+       string englishTitle = 3;
+       string logo = 4;
+       string title = 5;
+    }
+
+    repeated AIRLINES airlines = 2;
+     double totalCount = 3;
+     double minPrice = 4;
+     double maxPrice = 5;
+     bool showIataCodeOnCard = 6;
+
+    message AVERAGEPRICE {
+       string from = 1;
+       string to = 2;
+       double averagePrice = 3;
+       double minPrice = 4;
+       double firstQuartile = 5;
+       double median = 6;
+       double thirdQuartile = 7;
+       double maxPrice = 8;
+       string destination = 9;
+       string origin = 10;
+    }
+
+     AVERAGEPRICE averagePrice = 7;
+  }
+
+   META meta = 1;
+
+  message FLIGHTS {
+     string id = 1;
+     double score = 2;
+
+    message PRICES {
+       string url = 1;
+       string uniqueId = 2;
+       string proposalId = 3;
+       double capacity = 4;
+       string discountToken = 5;
+       string bookingClass = 6;
+
+      message PASSENGERFARES {
+         double baseFare = 1;
+         double commission = 2;
+         double tax = 3;
+         double discount = 4;
+         double totalFare = 5;
+         string paxType = 6;
+         bool specialDiscountAllowed = 7;
+         bool serialize = 8;
+         double discountPercent = 9;
+      }
+
+      repeated PASSENGERFARES passengerFares = 7;
+       double baggage = 8;
+       double baggageType = 9;
+       double cabinClass = 10;
+       string fareRulesUrl = 11;
+       string fareRules = 12;
+
+      message CANCELLATIONTERNENTITIES {
+         double amount = 1;
+         double percentAmount = 2;
+         string title = 3;
+      }
+
+      repeated CANCELLATIONTERNENTITIES cancellationTernEntities = 13;
+       bool isCharter = 14;
+       bool ignorePriceLimit = 15;
+    }
+
+    repeated PRICES prices = 3;
+
+    message SEGMENTS {
+
+      message TIMESTAMP {
+         double ticks = 1;
+         double days = 2;
+         double hours = 3;
+         double milliseconds = 4;
+         double minutes = 5;
+         double seconds = 6;
+         double totalDays = 7;
+         double totalHours = 8;
+         double totalMilliseconds = 9;
+         double totalMinutes = 10;
+         double totalSeconds = 11;
+      }
+
+       TIMESTAMP connectionTime = 1;
+
+       TIMESTAMP totalTime = 2;
+
+      message LEGS {
+         double id = 1;
+         string flightNumber = 2;
+         string origin = 3;
+         string originAirport = 4;
+         string originCode = 5;
+         string destination = 6;
+         string destinationAirport = 7;
+
+
+         TIMESTAMP journeyTime = 8;
+         string destinationCode = 9;
+
+        message AIRCRAFT {
+           string persianTitle = 1;
+           string englishTitle = 2;
+           double score = 3;
+           string iatacode = 4;
+           string shortTitle = 5;
+        }
+
+         AIRCRAFT airCraft = 10;
+         string airlineCode = 11;
+
+        message AIRLINE {
+           string iataCode = 1;
+           string persianTitle = 2;
+           string englishTitle = 3;
+           string logo = 4;
+           string title = 5;
+        }
+
+         AIRLINE airline = 12;
+         string departureDateString = 13;
+         string departureWeekDay = 14;
+         string departureTerminal = 15;
+         string arrivalTerminal = 16;
+         string departureTime = 17;
+         string arrivalTime = 18;
+         double status = 19;
+         double flightStatus = 20;
+         double stops = 21;
+         string airplaneCode = 22;
+         string pngLogoPath = 23;
+         string svgLogoPath = 24;
+
+        message SUGGESTEDSERVICES {
+           double id = 1;
+           string from = 2;
+           string to = 3;
+           double fromId = 4;
+           double toId = 5;
+           string carrier = 6;
+           string number = 7;
+           string fromDate = 8;
+           string toDate = 9;
+           string title = 10;
+           double price = 11;
+           string description = 12;
+           string unitTitle = 13;
+           bool needDescription = 14;
+        }
+
+        repeated SUGGESTEDSERVICES suggestedServices = 25;
+      }
+
+      repeated LEGS legs = 3;
+    }
+
+    repeated SEGMENTS segments = 4;
+     bool phoneSale = 5;
+  }
+
+  repeated FLIGHTS flights = 2;
+}
+

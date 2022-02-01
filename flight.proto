@@ -107,7 +107,7 @@ message GetFlightsResponse {
 
       repeated PASSENGERFARES passengerFares = 7;
        double baggage = 8;
-       double baggageType = 9;
+       string baggageType = 9;
        double cabinClass = 10;
        string fareRulesUrl = 11;
        string fareRules = 12;
@@ -141,9 +141,9 @@ message GetFlightsResponse {
          double totalSeconds = 11;
       }
 
-       TIMESTAMP connectionTime = 1;
+       string connectionTime = 1;
 
-       TIMESTAMP totalTime = 2;
+       string totalTime = 2;
 
       message LEGS {
          double id = 1;
@@ -155,7 +155,7 @@ message GetFlightsResponse {
          string destinationAirport = 7;
 
 
-         TIMESTAMP journeyTime = 8;
+         string journeyTime = 8;
          string destinationCode = 9;
 
         message AIRCRAFT {
@@ -184,8 +184,8 @@ message GetFlightsResponse {
          string arrivalTerminal = 16;
          string departureTime = 17;
          string arrivalTime = 18;
-         double status = 19;
-         double flightStatus = 20;
+         string status = 19;
+         string flightStatus = 20;
          double stops = 21;
          string airplaneCode = 22;
          string pngLogoPath = 23;

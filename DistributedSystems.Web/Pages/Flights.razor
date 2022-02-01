@@ -1,86 +1,162 @@
 ﻿@page "/flights"
 
-
+@using System.Globalization
+@using Dtos.Requests;
 @using DistributedSystems.Web.Data
-@inject WeatherForecastService ForecastService
+@using DistributedSystems.Web.Utilities
 @inject grpcServices grpcServices
 
-<h1>Weather forecast</h1>
+<h2>انتخاب سفر هوایی</h2>
+<hr />
+<p>جهت انتخاب سفر خود، مبدا، مقصد و تاریخ پرواز خود را انتخاب کنید</p>
 
-<p>This component demonstrates fetching data from a service.</p>
-<EditForm class="container" Model="Model">
+<EditForm class="container" Model="searchFlightRequest">
     <DataAnnotationsValidator />
 
-    <DntInputText @bind-Value="Model.Name"
-                  LabelName="نام کاربری"
-                  FieldIcon="bi-person-circle" />
+    @if (airports != null)
+    {
+        <div class="form-group row m-1">
+            <label for="firstName" class="col-sm-3 col-form-label">
+                مبدا
+            </label>
+            <div class="col-sm-9">
+                <InputSelect id="department" @bind-Value="searchFlightRequest.OriginCode" class="form-select">
+                    @foreach (var dept in airports.CityAirports.OrderBy(i => i.PersianTitle))
+                    {
+                    <option value="@dept.Code">@dept.PersianTitle</option>
+                    }
+            </InputSelect>
+        </div>
+    </div>
+        <div class="form-group row m-1">
+            <label for="firstName" class="col-sm-3 col-form-label">
+                مقصد
+            </label>
+            <div class="col-sm-9">
+                <InputSelect id="department" @bind-Value="searchFlightRequest.DestinationCode" class="form-select">
+                    @foreach (var dept in airports.CityAirports.OrderBy(i => i.PersianTitle))
+                    {
+                    <option value="@dept.Code">@dept.PersianTitle</option>
+                    }
+            </InputSelect>
+        </div>
+    </div>
 
-    <DntInputPersianDate @bind-Value="Model.BirthDayGregorian"
-                         LabelName="تاریخ تولد"
+        <DntInputPersianDate @bind-Value="searchFlightRequest.DepartureDate"
+                         LabelName="تاریخ پرواز"
                          FieldIcon="bi-calendar"
                          ShowCalendarOnFocus="true"
                          BeginningOfCentury="1400"
                          CalendarFromYear="1350"
                          CalendarToYear="1450"
                          UsePersianNumbers="true"
-                         CalendarShowHolidays="true"
+                         CalendarShowHolidays="false"
                          CalendarShowTodayButton="true"
-                         CalendarUseShortPersianDayNamesOfWeek="true" />
+                         CalendarUseShortPersianDayNamesOfWeek="true"
+                         CalendarShowYearMonthDropdowns="true" />
+    }
+    <div class="form-group row m-1">
+        <div class="col-sm-12 text-center">
+            <button type="submit" class="btn btn-primary btn-md" @onclick="SearchFlight" disabled=@disableSeachButton>جستجو</button>
+        </div>
 
+    </div>
 
-    <button type="button" class="btn btn-primary btn-lg" @onclick="DoSave">ارسال</button>
 </EditForm>
+<br />
+<hr />
+<br />
 
-<button class="btn btn-primary" @onclick="DoSave">Click me</button>
 
-@if (forecasts == null)
+
+@if (disableSeachButton)
 {
-    <p><em>Loading...</em></p>
+    <div class="text-center">
+        <div class="spinner-border" role="status">
+        </div>
+    </div>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
+    if (flights != null && flights.Flights != null && flights.Flights.Any(i => i.Prices.Any()))
+    {
+        <table class="table table-striped text-center">
+            <thead>
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <th>تارخ حرکت</th>
+                    <th>زمان حرکت</th>
+                    <th>تاریخ رسیدن</th>
+                    <th>زمان رسیدن</th>
+                    <th>هواپیمایی</th>
+                    <th>شماره پرواز</th>
+                    <th>ظرفیت</th>
+                    <th>قیمت</th>
+                    <th>خرید</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var flight in flights.Flights.Where(i => i.Prices.Any()))
+                {
+                    @foreach (var price in flight.Prices)
+                    {
+                        <tr>
+                            <td>@DateTimeHelpers.ConvertToPersionDate(flight.Segments.First().Legs.First().DepartureTime)</td>
+                            <td>@DateTimeHelpers.ConvertToPersionTime(flight.Segments.First().Legs.First().DepartureTime)</td>
+                            <td>@DateTimeHelpers.ConvertToPersionDate(flight.Segments.First().Legs.First().ArrivalTime)</td>
+                            <td>@DateTimeHelpers.ConvertToPersionTime(flight.Segments.First().Legs.First().ArrivalTime)</td>
+                            <td>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 text-center">
+                                        @flight.Segments.First().Legs.First().Airline.PersianTitle
+                                    </div>
+                                    <div class="col-sm-6 text-center">
+                                        <img style="height:50px; width:50px;" src=@flight.Segments.First().Legs.First().Airline.Logo.Replace("static.","") />
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@flight.Segments.First().Legs.First().FlightNumber</td>
+                            <td>@price.Capacity</td>
+                            <td>@string.Format("{0:N0}",price.PassengerFares.First(i=>i.PaxType == "ADL")?.TotalFare)</td>
+                            <td><a href=@price.Url target="_blank">خرید</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else if (alreadySeached)
+    {
+        <p class="text-center">متاسفانه پروازی یافت نشد</p>
+    }
 }
 
 @code {
-    private WeatherForecast[] forecasts;
-    private DateTime selectedDate;
-    private test Model = new test();
-    private class test
-    {
-        public string Name;
-        public DateTime BirthDayGregorian;
-    }
+    private Flight.GetAirPortsResponse airports;
+    private Flight.GetFlightsResponse flights;
+    private SearchFlightRequest searchFlightRequest;
+    private bool disableSeachButton = false;
+    private bool alreadySeached = false;
+
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-        await grpcServices.GetAirportsAsync();
+        searchFlightRequest = new();
+        airports = await grpcServices.GetAirportsAsync();
     }
 
-    private void DoSave()
-    {
-        Console.WriteLine(Model.Name);
-        Console.WriteLine(Model.BirthDayGregorian);
 
+    private async Task SearchFlight()
+    {
+        alreadySeached = true;
+        try
+        {
+            disableSeachButton = true;
+            flights = await grpcServices.GetFlightsAsync(searchFlightRequest);
+
+        }
+        catch { }
+        finally
+        {
+            disableSeachButton = false;
+        }
     }
 }

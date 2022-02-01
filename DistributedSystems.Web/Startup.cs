@@ -29,7 +29,6 @@ namespace DistributedSystems.Web
             services.AddMvcCore();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<grpcServices>();
         }
 

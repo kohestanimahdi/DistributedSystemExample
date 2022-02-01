@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystems.FlightsService", "DistributedSystems.FlightsService\DistributedSystems.FlightsService.csproj", "{75AF73C7-380C-42E4-92B1-59D72248F2E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedSystems.FlightsService", "DistributedSystems.FlightsService\DistributedSystems.FlightsService.csproj", "{75AF73C7-380C-42E4-92B1-59D72248F2E2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedFiles", "SharedFiles", "{F488B7E1-B929-401E-8382-4643492990C7}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{90B928
 	ProjectSection(SolutionItems) = preProject
 		flight.proto = flight.proto
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystems.Web", "DistributedSystems.Web\DistributedSystems.Web.csproj", "{6EC953B9-F0B4-4A0D-A212-370A982A674B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{75AF73C7-380C-42E4-92B1-59D72248F2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75AF73C7-380C-42E4-92B1-59D72248F2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75AF73C7-380C-42E4-92B1-59D72248F2E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

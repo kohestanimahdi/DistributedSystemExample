@@ -1,0 +1,40 @@
+﻿@page "/"
+@namespace DistributedSystems.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DistributedSystems.Web</title>
+    <base href="~/" />
+    <link href="lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap-icons/font/bootstrap-icons.css"
+          rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="DistributedSystems.Web.styles.css" rel="stylesheet" />
+
+</head>
+<body dir="rtl">
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            مشکلی رخ داده است.
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            خطای نامشخصی رخ داده است
+        </environment>
+        <a href="" class="reload">بارگذاری مجدد</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+
+</body>
+</html>

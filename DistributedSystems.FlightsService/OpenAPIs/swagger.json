@@ -1,0 +1,1353 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MrBilit Flight Service",
+    "description": "FlightService API Docs",
+    "contact": {
+      "name": "Mahdi Kohestani",
+      "email": "kohestanimahdi@gmail.com"
+    },
+    "license": {
+      "name": "AtighGasht Co.",
+      "url": "https://mrbilit.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/thp/Airports": {
+      "get": {
+        "tags": [
+          "Airports"
+        ],
+        "summary": "Get list of airports and cities",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "international",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CityAirportResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CityAirportResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CityAirportResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/thp/Flights": {
+      "post": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Get list of available flights of routes",
+        "description": "Sample request:\r\n            \r\n    POST /api/thp/Flights\r\n    {\r\n      \"routes\": [\r\n        {\r\n          \"originCode\": \"MHD\",          // IATA code of aiport or city of origin\r\n          \"destinationCode\": \"THR\",     // IATA code of aiport or city of Destination\r\n          \"departureDate\": \"2021-09-27\" // Date of departure that you want to search for\r\n        }\r\n      ],\r\n      \"adultCount\": 1,   // Number of adult passengers\r\n      \"childCount\": 0,   // Number of childers passengers (Childern: people who aged less than 12)\r\n      \"infantCount\": 0,  // Number of infant passengers (Infant: people who aged less than 2)\r\n      \"pageNumber\": 1,   // if you use pagination for show list you can pass page number (optional)\r\n      \"pageSize\": 20,    // if you use pagination for show list you can pass page size (optional)\r\n      \"cabinClass\": 0    // select cabin class of flights (0: All, 1: Economy, 2: Business, 3: FirstClass)\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetFlightsRequestDtoTHP"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetFlightsRequestDtoTHP"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetFlightsRequestDtoTHP"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetFlightsRequestDtoTHP"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFlightsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFlightsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFlightsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/thp/Flights/Reserve": {
+      "post": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "create flight reserve (Auth)",
+        "description": "Sample request:\r\n            \r\n    POST /api/thp/Flights/Reserve\r\n    {\r\n      \"adultCount\": 1,           // Number of adult passengers\r\n      \"childCount\": 0,           // Number of childers passengers (Childern: people who aged less than 12)\r\n      \"infantCount\": 0,          // Number of infant passengers (Infant: people who aged less than 2)\r\n      \"proposalId\": \"token\",     // The ProposalId of price in list of flights\r\n      \"discountToken\": \"token\",  // The token that you recieve in list of flights (optional)\r\n      \"cabinClass\": 1            // select cabin class of flights (0: All, 1: Economy, 2: Business, 3: FirstClass)\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveFlightRequestTHP"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveFlightRequestTHP"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveFlightRequestTHP"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveFlightRequestTHP"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReserveResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReserveResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReserveResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/thp/Flights/RegisterInformation": {
+      "post": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Register information of each person (Auth)",
+        "description": "Sample request:\r\n            \r\n    POST /api/thp/Flights/RegisterInformation\r\n    {\r\n      \"email\": \"salam@mrbilit.com\",  // Email address for get tickets (Optional)       \r\n      \"phone\": \"02161169000\",        // Phone (home or work phone) (Optional)\r\n      \"mobile\": \"09xxxxxxxx\",        // Mobile\r\n      \"billCode\": \"1234567\",         // Bill code that recieve in create reserve step\r\n      \"person\": [\r\n        {\r\n          \"paxType\": 0,                         // The age range of person (0: adult, 1: child, 2: infant)\r\n          \"nationality\": \"IR\",                  // Nationality of person (For Iranian people, use IR)\r\n          \"passportIssuer\": \"\",                 // Issues of passport if he/she is foreign (For Iranian people, it's not required)\r\n          \"firstName\": \"Mahdi\",                 // First name\r\n          \"lastName\": \"kohestani\",              // Last name\r\n          \"birthDay\": \"1997-12-25\",             // birthday (Optional for adults)\r\n          \"isMale\": true,                       // Is man?\r\n          \"nationalCode\": \"127xxxxxxx\",         // National code of Iranian people\r\n          \"passportNumber\": \"H12346\",           // passport number if he/she is foreign (For Iranian people, it's not required)\r\n          \"passportExpiration\": \"2021-09-01\"    // Expiration date of passport if he/she is foreign (For Iranian people, it's not required)\r\n        }\r\n      ]\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInfoRequestDtoTHP"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInfoRequestDtoTHP"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInfoRequestDtoTHP"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInfoRequestDtoTHP"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterInfoResponseDtoTHP"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterInfoResponseDtoTHP"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterInfoResponseDtoTHP"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/api/thp/Flights/FinalizeReserve": {
+      "post": {
+        "tags": [
+          "Flights"
+        ],
+        "summary": "Finalize reserve after success payment (Auth)",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinalizeReserveRequestTHP"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinalizeReserveRequestTHP"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinalizeReserveRequestTHP"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinalizeReserveRequestTHP"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AircraftDto": {
+        "type": "object",
+        "properties": {
+          "persianTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "englishTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "iatacode": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortTitle": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AirlineDto": {
+        "type": "object",
+        "properties": {
+          "iataCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "persianTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "englishTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "logo": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AirportResponse": {
+        "type": "object",
+        "properties": {
+          "cityPersianTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityEnglishTitle": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AveragePriceDto": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "averagePrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstQuartile": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "median": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "thirdQuartile": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "destination": {
+            "type": "string",
+            "nullable": true
+          },
+          "origin": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BaggageType": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "CabinClassRequest": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "CancellationTernEntity": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "percentAmount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CityAirportResponse": {
+        "type": "object",
+        "properties": {
+          "airports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AirportResponse"
+            },
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "persianTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryPersianTitle": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CityInfo": {
+        "type": "object",
+        "properties": {
+          "persianTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "englishTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "iataCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "isInternational": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FinalizeReserveRequestTHP": {
+        "type": "object",
+        "properties": {
+          "billId": {
+            "type": "integer",
+            "description": "The Id of bill that you give in reserve step",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FlightLegDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "flightNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "origin": {
+            "type": "string",
+            "nullable": true
+          },
+          "originAirport": {
+            "type": "string",
+            "nullable": true
+          },
+          "originCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "destination": {
+            "type": "string",
+            "nullable": true
+          },
+          "destinationAirport": {
+            "type": "string",
+            "nullable": true
+          },
+          "journeyTime": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "destinationCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "airCraft": {
+            "$ref": "#/components/schemas/AircraftDto"
+          },
+          "airlineCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "airline": {
+            "$ref": "#/components/schemas/AirlineDto"
+          },
+          "departureDateString": {
+            "type": "string",
+            "nullable": true
+          },
+          "departureWeekDay": {
+            "type": "string",
+            "nullable": true
+          },
+          "departureTerminal": {
+            "type": "string",
+            "nullable": true
+          },
+          "arrivalTerminal": {
+            "type": "string",
+            "nullable": true
+          },
+          "departureTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "arrivalTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "flightStatus": {
+            "$ref": "#/components/schemas/FlightStatus"
+          },
+          "stops": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "airplaneCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "pngLogoPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "svgLogoPath": {
+            "type": "string",
+            "nullable": true
+          },
+          "suggestedServices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SuggestedServiceDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FlightPackageDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceDto"
+            },
+            "nullable": true
+          },
+          "segments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlightSegmentDto"
+            },
+            "nullable": true
+          },
+          "phoneSale": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FlightRouteDtoTHP": {
+        "required": [
+          "destinationCode",
+          "originCode"
+        ],
+        "type": "object",
+        "properties": {
+          "originCode": {
+            "type": "string",
+            "description": "IATA code of aiport or city of origin",
+            "example": "MHD"
+          },
+          "destinationCode": {
+            "type": "string",
+            "description": "IATA code of aiport or city of Destination",
+            "example": "THR"
+          },
+          "departureDate": {
+            "type": "string",
+            "description": "date of departure that you want to search for",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FlightSegmentDto": {
+        "type": "object",
+        "properties": {
+          "connectionTime": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "totalTime": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "legs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlightLegDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FlightsMetaDto": {
+        "type": "object",
+        "properties": {
+          "routesInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RouteInfoDto"
+            },
+            "nullable": true
+          },
+          "airlines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AirlineDto"
+            },
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minPrice": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "maxPrice": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "showIataCodeOnCard": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "averagePrice": {
+            "$ref": "#/components/schemas/AveragePriceDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FlightStatus": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "GetFlightsRequestDtoTHP": {
+        "type": "object",
+        "properties": {
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlightRouteDtoTHP"
+            },
+            "nullable": true
+          },
+          "adultCount": {
+            "type": "integer",
+            "description": "Number of adult passengers",
+            "format": "int32",
+            "example": 1
+          },
+          "childCount": {
+            "type": "integer",
+            "description": "Number of childers passengers (Childern: people who aged less than 12)",
+            "format": "int32",
+            "example": 0
+          },
+          "infantCount": {
+            "type": "integer",
+            "description": "Number of infant passengers (Infant: people who aged less than 2)",
+            "format": "int32",
+            "example": 0
+          },
+          "pageNumber": {
+            "type": "integer",
+            "description": "if you use pagination for show list you can pass page number (optional)",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "if you use pagination for show list you can pass page size (optional)",
+            "format": "int32",
+            "nullable": true,
+            "example": 20
+          },
+          "cabinClass": {
+            "$ref": "#/components/schemas/CabinClassRequest"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetFlightsResponseDto": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/FlightsMetaDto"
+          },
+          "flights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlightPackageDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Level": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "PassengerFareDto": {
+        "type": "object",
+        "properties": {
+          "baseFare": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "commission": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tax": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "discount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalFare": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paxType": {
+            "type": "string",
+            "nullable": true
+          },
+          "specialDiscountAllowed": {
+            "type": "boolean"
+          },
+          "serialize": {
+            "type": "boolean"
+          },
+          "discountPercent": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaxType": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "PriceDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "uniqueId": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "writeOnly": true
+          },
+          "proposalId": {
+            "type": "string",
+            "nullable": true
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "discountToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "bookingClass": {
+            "type": "string",
+            "nullable": true
+          },
+          "passengerFares": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PassengerFareDto"
+            },
+            "nullable": true
+          },
+          "baggage": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "baggageType": {
+            "$ref": "#/components/schemas/BaggageType"
+          },
+          "cabinClass": {
+            "$ref": "#/components/schemas/CabinClassRequest"
+          },
+          "fareRulesUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "fareRules": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancellationTernEntities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CancellationTernEntity"
+            },
+            "nullable": true
+          },
+          "isCharter": {
+            "type": "boolean"
+          },
+          "ignorePriceLimit": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterInfoRequestDtoTHP": {
+        "required": [
+          "billCode",
+          "mobile"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email address for get tickets (Optional)",
+            "nullable": true,
+            "example": "salam@mrbilit.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone (home or work phone) (Optional)",
+            "nullable": true,
+            "example": "02161169000"
+          },
+          "mobile": {
+            "type": "string",
+            "description": "Mobile",
+            "example": "09xxxxxxxx"
+          },
+          "billCode": {
+            "type": "string",
+            "description": "Bill code that recieve in create reserve step",
+            "example": "1234567"
+          },
+          "person": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegisterPersonInfoRequestDtoTHP"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterInfoResponseDtoTHP": {
+        "type": "object",
+        "properties": {
+          "billCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterPersonInfoRequestDtoTHP": {
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "type": "object",
+        "properties": {
+          "paxType": {
+            "$ref": "#/components/schemas/PaxType"
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality of person (For Iranian people, use IR)",
+            "nullable": true,
+            "example": "IR"
+          },
+          "passportIssuer": {
+            "type": "string",
+            "description": "Issues of passport if he/she is foreign (For Iranian people, it's not required)",
+            "nullable": true,
+            "example": ""
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "Mahdi"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "kohestani"
+          },
+          "birthDay": {
+            "type": "string",
+            "description": "birthday (Optional for adults)",
+            "format": "date-time",
+            "nullable": true,
+            "example": "1997-12-25"
+          },
+          "isMale": {
+            "type": "boolean",
+            "description": "Is man?",
+            "example": true
+          },
+          "nationalCode": {
+            "type": "string",
+            "description": "National code of Iranian people",
+            "nullable": true,
+            "example": "127xxxxxxx"
+          },
+          "passportNumber": {
+            "type": "string",
+            "description": "passport number if he/she is foreign (For Iranian people, it's not required)",
+            "nullable": true,
+            "example": "H12346"
+          },
+          "passportExpiration": {
+            "type": "string",
+            "description": "Expiration date of passport if he/she is foreign (For Iranian people, it's not required)",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2021-09-01"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReserveFlightRequestTHP": {
+        "required": [
+          "proposalId"
+        ],
+        "type": "object",
+        "properties": {
+          "adultCount": {
+            "type": "integer",
+            "description": "Number of adult passengers",
+            "format": "int32",
+            "example": 1
+          },
+          "childCount": {
+            "type": "integer",
+            "description": "Number of childers passengers (Childern: people who aged less than 12)",
+            "format": "int32",
+            "example": 0
+          },
+          "infantCount": {
+            "type": "integer",
+            "description": "Number of infant passengers (Infant: people who aged less than 2)",
+            "format": "int32",
+            "example": 0
+          },
+          "proposalId": {
+            "type": "string",
+            "description": "The ProposalId of price in list of flights",
+            "example": "token"
+          },
+          "discountToken": {
+            "type": "string",
+            "description": "The token that you recieve in list of flights (optional)",
+            "nullable": true,
+            "example": "token"
+          },
+          "cabinClass": {
+            "$ref": "#/components/schemas/CabinClassRequest"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReserveNote": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "$ref": "#/components/schemas/Level"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReserveResponse": {
+        "type": "object",
+        "properties": {
+          "billId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "billCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "itinerary": {
+            "$ref": "#/components/schemas/FlightPackageDto"
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            },
+            "nullable": true
+          },
+          "reserveNotes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReserveNote"
+            },
+            "nullable": true
+          },
+          "international": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RouteInfoDto": {
+        "type": "object",
+        "properties": {
+          "origin": {
+            "$ref": "#/components/schemas/CityInfo"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/CityInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "cost": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SuggestedServiceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "toId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "carrier": {
+            "type": "string",
+            "nullable": true
+          },
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "fromDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "toDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "needDescription": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeSpan": {
+        "type": "object",
+        "properties": {
+          "ticks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "days": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hours": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "milliseconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalDays": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalHours": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalMilliseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalMinutes": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalSeconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": [ ]
+    }
+  ]
+}

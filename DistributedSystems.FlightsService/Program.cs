@@ -1,18 +1,11 @@
-﻿using Flight;
+﻿using DistributedSystems.FlightsService.ProtoImplementations;
+using Flight;
 using Grpc.Core;
 using System;
 using System.Threading.Tasks;
 
 namespace DistributedSystems.FlightsService
 {
-    class FlightImpl : Flight.Flights.FlightsBase
-    {
-        // Server side handler of the SayHello RPC
-        public override Task<GetFlightsResponse> GetFlightsList(GetFlightsRequest request, ServerCallContext context)
-        {
-            return base.GetFlightsList(request, context);
-        }
-    }
     internal class Program
     {
         const int Port = 30051;
@@ -21,7 +14,7 @@ namespace DistributedSystems.FlightsService
         {
             Server server = new Server
             {
-                Services = { Flight.Flights.BindService(new FlightImpl()) },
+                Services = { Flight.Flights.BindService(new FlightProtoImpl()) },
                 Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
             };
             server.Start();

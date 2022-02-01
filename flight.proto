@@ -11,6 +11,7 @@ package Flight;
 service Flights {
   // Sends a greeting
   rpc GetFlightsList (GetFlightsRequest) returns (GetFlightsResponse) {}
+  rpc GetAirportsList (GetAirPortsRequest) returns (GetAirPortsResponse) {}
 }
 
 // The request message containing the user's name.
@@ -218,5 +219,32 @@ message GetFlightsResponse {
   }
 
   repeated FLIGHTS flights = 2;
+}
+
+message GetAirPortsRequest{
+    string title = 1;
+    bool international = 2;
+}
+
+message GetAirPortsResponse {
+
+  message CITYAIRPORT {
+
+    message AIRPORTS {
+      string cityPersianTitle = 1;
+      string code = 2;
+      string title = 3;
+      string cityEnglishTitle = 4;
+    }
+
+    repeated AIRPORTS airports = 1;
+    string code = 2;
+    string countryTitle = 3;
+    string persianTitle = 4;
+    string title = 5;
+    string countryPersianTitle = 6;
+  }
+
+   repeated CITYAIRPORT CityAirports = 1;
 }
 

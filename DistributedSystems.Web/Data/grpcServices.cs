@@ -4,6 +4,7 @@ using Grpc.Core;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Threading.Tasks;
+using Grpc.Core.Interceptors;
 
 namespace DistributedSystems.Web.Data
 {
@@ -15,7 +16,8 @@ namespace DistributedSystems.Web.Data
 
         public grpcServices(IDistributedCache cache)
         {
-            Channel channel = new Channel("127.0.0.1:30051", ChannelCredentials.Insecure);
+            Channel channel = new Channel("localhost:30051", ChannelCredentials.Insecure);
+
             client = new Flight.Flights.FlightsClient(channel);
             this.cache = cache;
         }
@@ -33,7 +35,9 @@ namespace DistributedSystems.Web.Data
                 await cache.SetValueAsync("AirPortsResponse", airports, 30);
                 return airports;
             }
-            catch { }
+            catch (Exception ex)
+            {
+            }
 
             return null;
         }

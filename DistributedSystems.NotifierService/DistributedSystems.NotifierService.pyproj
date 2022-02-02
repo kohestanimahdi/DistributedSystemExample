@@ -25,7 +25,11 @@
     <Compile Include="DistributedSystems.NotifierService.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
     <Content Include="appsettings.json" />
+    <Content Include="Dockerfile" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

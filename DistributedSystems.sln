@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{90B928
 		flight.proto = flight.proto
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystems.Web", "DistributedSystems.Web\DistributedSystems.Web.csproj", "{6EC953B9-F0B4-4A0D-A212-370A982A674B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedSystems.Web", "DistributedSystems.Web\DistributedSystems.Web.csproj", "{6EC953B9-F0B4-4A0D-A212-370A982A674B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedSystems.Common", "DistributedSystems.Common\DistributedSystems.Common.csproj", "{26713F87-414A-4224-A323-945EAB6E1C54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EC953B9-F0B4-4A0D-A212-370A982A674B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26713F87-414A-4224-A323-945EAB6E1C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26713F87-414A-4224-A323-945EAB6E1C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26713F87-414A-4224-A323-945EAB6E1C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26713F87-414A-4224-A323-945EAB6E1C54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

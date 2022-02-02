@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DistributedSystems.Web.Utilities
+namespace DistributedSystems.Common.Utilities
 {
     public static class DateTimeHelpers
     {

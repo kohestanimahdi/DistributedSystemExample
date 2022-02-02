@@ -19,5 +19,10 @@ namespace DistributedSystems.Web.Dtos.Requests
         public int AdultCount { get; set; }
         public int ChildCount { get; set; }
         public int InfantCount { get; set; }
+
+        public override string ToString()
+        {
+            return $"{OriginCode}-{DestinationCode}-{DepartureDate.ToString("yyyy-MM-dd")}-{AdultCount}-{ChildCount}-{InfantCount}";
+        }
     }
 }

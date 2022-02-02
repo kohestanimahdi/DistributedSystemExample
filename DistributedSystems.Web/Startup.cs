@@ -1,3 +1,4 @@
+using DistributedSystems.Web.Configurations;
 using DistributedSystems.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -26,7 +27,7 @@ namespace DistributedSystems.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore();
+            services.AddRedisCache(Configuration.GetConnectionString("Redis"), "RedisWebCache");
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<grpcServices>();
@@ -53,7 +54,6 @@ namespace DistributedSystems.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

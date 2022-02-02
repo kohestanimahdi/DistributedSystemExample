@@ -39,9 +39,9 @@ namespace DistributedSystems.Web.Data
                 {
                     DepartureDate = request.DepartureDate.ToString("yyyy-MM-dd"),
                     DestinationCode = request.DestinationCode,
-                    AdultCount = 1,
-                    ChildCount = 0,
-                    InfantCount = 0,
+                    AdultCount = request.AdultCount,
+                    ChildCount = request.ChildCount,
+                    InfantCount = request.InfantCount,
                     OriginCode = request.OriginCode,
                     PageNumber = 1,
                     PageSize = 10000

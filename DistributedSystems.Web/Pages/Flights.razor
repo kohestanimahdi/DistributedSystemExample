@@ -20,7 +20,7 @@
                 مبدا
             </label>
             <div class="col-sm-9">
-                <InputSelect id="department" @bind-Value="searchFlightRequest.OriginCode" class="form-select">
+                <InputSelect id="OriginCode" @bind-Value="searchFlightRequest.OriginCode" class="form-select">
                     @foreach (var dept in airports.CityAirports.OrderBy(i => i.PersianTitle))
                     {
                     <option value="@dept.Code">@dept.PersianTitle</option>
@@ -33,7 +33,7 @@
                 مقصد
             </label>
             <div class="col-sm-9">
-                <InputSelect id="department" @bind-Value="searchFlightRequest.DestinationCode" class="form-select">
+                <InputSelect id="DestinationCode" @bind-Value="searchFlightRequest.DestinationCode" class="form-select">
                     @foreach (var dept in airports.CityAirports.OrderBy(i => i.PersianTitle))
                     {
                     <option value="@dept.Code">@dept.PersianTitle</option>
@@ -54,7 +54,29 @@
                          CalendarShowTodayButton="true"
                          CalendarUseShortPersianDayNamesOfWeek="true"
                          CalendarShowYearMonthDropdowns="true" />
+
+        <div class="form-group row">
+            <label for="firstName" class="col-sm-2 col-form-label">
+                تعداد بزرگسال
+            </label>
+            <div class="col-sm-2">
+                <InputNumber @bind-Value="searchFlightRequest.AdultCount" class="form-select"></InputNumber>
+            </div>
+            <label for="firstName" class="col-sm-2 col-form-label">
+                تعداد کودک
+            </label>
+            <div class="col-sm-2">
+                <InputNumber @bind-Value="searchFlightRequest.ChildCount" class="form-select"></InputNumber>
+            </div>
+            <label for="firstName" class="col-sm-2 col-form-label">
+                تعداد نوزاد
+            </label>
+            <div class="col-sm-2">
+                <InputNumber @bind-Value="searchFlightRequest.InfantCount" class="form-select"></InputNumber>
+            </div>
+        </div>
     }
+    <br />
     <div class="form-group row m-1">
         <div class="col-sm-12 text-center">
             <button type="submit" class="btn btn-primary btn-md" @onclick="SearchFlight" disabled=@disableSeachButton>جستجو</button>

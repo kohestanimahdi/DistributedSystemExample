@@ -27,7 +27,7 @@ namespace DistributedSystems.FlightsService.ProtoImplementations
                 InfantCount = request.InfantCount,
                 ChildCount = request.ChildCount,
                 AdultCount = request.AdultCount,
-                CabinClass = CabinClassRequest._0,
+                CabinClass = CabinClassRequest.All,
                 Routes = new List<FlightRouteDtoTHP>
                 {
                     new FlightRouteDtoTHP

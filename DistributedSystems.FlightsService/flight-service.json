@@ -316,24 +316,24 @@
       "AircraftDto": {
         "type": "object",
         "properties": {
-          "persianTitle": {
+          "PersianTitle": {
             "type": "string",
             "nullable": true
           },
-          "englishTitle": {
+          "EnglishTitle": {
             "type": "string",
             "nullable": true
           },
-          "score": {
+          "Score": {
             "type": "number",
             "format": "float",
             "nullable": true
           },
-          "iatacode": {
+          "Iatacode": {
             "type": "string",
             "nullable": true
           },
-          "shortTitle": {
+          "ShortTitle": {
             "type": "string",
             "nullable": true
           }
@@ -343,26 +343,39 @@
       "AirlineDto": {
         "type": "object",
         "properties": {
-          "iataCode": {
+          "IataCode": {
             "type": "string",
             "nullable": true
           },
-          "persianTitle": {
+          "PersianTitle": {
             "type": "string",
             "nullable": true
           },
-          "englishTitle": {
+          "EnglishTitle": {
             "type": "string",
             "nullable": true
           },
-          "logo": {
+          "Logo": {
             "type": "string",
             "nullable": true,
             "readOnly": true
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AirportOrCityDto": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsCity": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -370,19 +383,19 @@
       "AirportResponse": {
         "type": "object",
         "properties": {
-          "cityPersianTitle": {
+          "CityPersianTitle": {
             "type": "string",
             "nullable": true
           },
-          "code": {
+          "Code": {
             "type": "string",
             "nullable": true
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "cityEnglishTitle": {
+          "CityEnglishTitle": {
             "type": "string",
             "nullable": true
           }
@@ -392,43 +405,43 @@
       "AveragePriceDto": {
         "type": "object",
         "properties": {
-          "from": {
+          "From": {
             "type": "string",
             "nullable": true
           },
-          "to": {
+          "To": {
             "type": "string",
             "nullable": true
           },
-          "averagePrice": {
+          "AveragePrice": {
             "type": "integer",
             "format": "int32"
           },
-          "minPrice": {
+          "MinPrice": {
             "type": "integer",
             "format": "int32"
           },
-          "firstQuartile": {
+          "FirstQuartile": {
             "type": "integer",
             "format": "int32"
           },
-          "median": {
+          "Median": {
             "type": "integer",
             "format": "int32"
           },
-          "thirdQuartile": {
+          "ThirdQuartile": {
             "type": "integer",
             "format": "int32"
           },
-          "maxPrice": {
+          "MaxPrice": {
             "type": "integer",
             "format": "int32"
           },
-          "destination": {
+          "Destination": {
             "type": "string",
             "nullable": true
           },
-          "origin": {
+          "Origin": {
             "type": "string",
             "nullable": true
           }
@@ -437,37 +450,35 @@
       },
       "BaggageType": {
         "enum": [
-          0,
-          1,
-          2
+          "None",
+          "KG",
+          "Piece"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "CabinClassRequest": {
         "enum": [
-          0,
-          1,
-          2,
-          3
+          "All",
+          "Economy",
+          "Business",
+          "FirstClass"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "CancellationTernEntity": {
         "type": "object",
         "properties": {
-          "amount": {
+          "Amount": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "percentAmount": {
+          "PercentAmount": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           }
@@ -477,30 +488,30 @@
       "CityAirportResponse": {
         "type": "object",
         "properties": {
-          "airports": {
+          "Airports": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AirportResponse"
             },
             "nullable": true
           },
-          "code": {
+          "Code": {
             "type": "string",
             "nullable": true
           },
-          "countryTitle": {
+          "CountryTitle": {
             "type": "string",
             "nullable": true
           },
-          "persianTitle": {
+          "PersianTitle": {
             "type": "string",
             "nullable": true
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "countryPersianTitle": {
+          "CountryPersianTitle": {
             "type": "string",
             "nullable": true
           }
@@ -510,29 +521,29 @@
       "CityInfo": {
         "type": "object",
         "properties": {
-          "persianTitle": {
+          "PersianTitle": {
             "type": "string",
             "nullable": true
           },
-          "englishTitle": {
+          "EnglishTitle": {
             "type": "string",
             "nullable": true
           },
-          "iataCode": {
+          "IataCode": {
             "type": "string",
             "nullable": true
           },
-          "latitude": {
+          "Latitude": {
             "type": "number",
             "format": "float",
             "nullable": true
           },
-          "longitude": {
+          "Longitude": {
             "type": "number",
             "format": "float",
             "nullable": true
           },
-          "isInternational": {
+          "IsInternational": {
             "type": "boolean",
             "readOnly": true
           }
@@ -542,7 +553,7 @@
       "FinalizeReserveRequestTHP": {
         "type": "object",
         "properties": {
-          "billId": {
+          "BillId": {
             "type": "integer",
             "description": "The Id of bill that you give in reserve step",
             "format": "int32"
@@ -553,100 +564,102 @@
       "FlightLegDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "flightNumber": {
+          "FlightNumber": {
             "type": "string",
             "nullable": true
           },
-          "origin": {
+          "Origin": {
             "type": "string",
             "nullable": true
           },
-          "originAirport": {
+          "OriginAirport": {
             "type": "string",
             "nullable": true
           },
-          "originCode": {
+          "OriginCode": {
             "type": "string",
             "nullable": true
           },
-          "destination": {
+          "Destination": {
             "type": "string",
             "nullable": true
           },
-          "destinationAirport": {
+          "DestinationAirport": {
             "type": "string",
             "nullable": true
           },
-          "journeyTime": {
-            "$ref": "#/components/schemas/TimeSpan"
+          "JourneyTime": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
           },
-          "destinationCode": {
+          "DestinationCode": {
             "type": "string",
             "nullable": true
           },
-          "airCraft": {
+          "AirCraft": {
             "$ref": "#/components/schemas/AircraftDto"
           },
-          "airlineCode": {
+          "AirlineCode": {
             "type": "string",
             "nullable": true
           },
-          "airline": {
+          "Airline": {
             "$ref": "#/components/schemas/AirlineDto"
           },
-          "departureDateString": {
+          "DepartureDateString": {
             "type": "string",
             "nullable": true
           },
-          "departureWeekDay": {
+          "DepartureWeekDay": {
             "type": "string",
             "nullable": true
           },
-          "departureTerminal": {
+          "DepartureTerminal": {
             "type": "string",
             "nullable": true
           },
-          "arrivalTerminal": {
+          "ArrivalTerminal": {
             "type": "string",
             "nullable": true
           },
-          "departureTime": {
+          "DepartureTime": {
             "type": "string",
             "format": "date-time"
           },
-          "arrivalTime": {
+          "ArrivalTime": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "status": {
+          "Status": {
             "type": "integer",
             "format": "int32"
           },
-          "flightStatus": {
+          "FlightStatus": {
             "$ref": "#/components/schemas/FlightStatus"
           },
-          "stops": {
+          "Stops": {
             "type": "integer",
             "format": "int32"
           },
-          "airplaneCode": {
+          "AirplaneCode": {
             "type": "string",
             "nullable": true
           },
-          "pngLogoPath": {
+          "PngLogoPath": {
             "type": "string",
             "nullable": true
           },
-          "svgLogoPath": {
+          "SvgLogoPath": {
             "type": "string",
             "nullable": true
           },
-          "suggestedServices": {
+          "SuggestedServices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SuggestedServiceDto"
@@ -659,30 +672,30 @@
       "FlightPackageDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "Id": {
             "type": "string",
             "nullable": true
           },
-          "score": {
+          "Score": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "prices": {
+          "Prices": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PriceDto"
             },
             "nullable": true
           },
-          "segments": {
+          "Segments": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FlightSegmentDto"
             },
             "nullable": true
           },
-          "phoneSale": {
+          "PhoneSale": {
             "type": "boolean"
           }
         },
@@ -690,25 +703,31 @@
       },
       "FlightRouteDtoTHP": {
         "required": [
-          "destinationCode",
-          "originCode"
+          "DestinationCode",
+          "OriginCode"
         ],
         "type": "object",
         "properties": {
-          "originCode": {
+          "OriginCode": {
             "type": "string",
             "description": "IATA code of aiport or city of origin",
             "example": "MHD"
           },
-          "destinationCode": {
+          "DestinationCode": {
             "type": "string",
             "description": "IATA code of aiport or city of Destination",
             "example": "THR"
           },
-          "departureDate": {
+          "DepartureDate": {
             "type": "string",
             "description": "date of departure that you want to search for",
             "format": "date-time"
+          },
+          "OriginCodeDto": {
+            "$ref": "#/components/schemas/AirportOrCityDto"
+          },
+          "DestinationCodeDto": {
+            "$ref": "#/components/schemas/AirportOrCityDto"
           }
         },
         "additionalProperties": false
@@ -716,13 +735,16 @@
       "FlightSegmentDto": {
         "type": "object",
         "properties": {
-          "connectionTime": {
-            "$ref": "#/components/schemas/TimeSpan"
+          "ConnectionTime": {
+            "type": "string",
+            "format": "date-span"
           },
-          "totalTime": {
-            "$ref": "#/components/schemas/TimeSpan"
+          "TotalTime": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
           },
-          "legs": {
+          "Legs": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FlightLegDto"
@@ -735,39 +757,39 @@
       "FlightsMetaDto": {
         "type": "object",
         "properties": {
-          "routesInfo": {
+          "RoutesInfo": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RouteInfoDto"
             },
             "nullable": true
           },
-          "airlines": {
+          "Airlines": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AirlineDto"
             },
             "nullable": true
           },
-          "totalCount": {
+          "TotalCount": {
             "type": "integer",
             "format": "int32"
           },
-          "minPrice": {
+          "MinPrice": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "maxPrice": {
+          "MaxPrice": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "showIataCodeOnCard": {
+          "ShowIataCodeOnCard": {
             "type": "boolean",
             "readOnly": true
           },
-          "averagePrice": {
+          "AveragePrice": {
             "$ref": "#/components/schemas/AveragePriceDto"
           }
         },
@@ -775,60 +797,59 @@
       },
       "FlightStatus": {
         "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6
+          "Ok",
+          "Cancelled",
+          "CallToReserve",
+          "NotEnoughCapacity",
+          "NotElectronic",
+          "Closed",
+          "Full"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "GetFlightsRequestDtoTHP": {
         "type": "object",
         "properties": {
-          "routes": {
+          "Routes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FlightRouteDtoTHP"
             },
             "nullable": true
           },
-          "adultCount": {
+          "AdultCount": {
             "type": "integer",
             "description": "Number of adult passengers",
             "format": "int32",
             "example": 1
           },
-          "childCount": {
+          "ChildCount": {
             "type": "integer",
             "description": "Number of childers passengers (Childern: people who aged less than 12)",
             "format": "int32",
             "example": 0
           },
-          "infantCount": {
+          "InfantCount": {
             "type": "integer",
             "description": "Number of infant passengers (Infant: people who aged less than 2)",
             "format": "int32",
             "example": 0
           },
-          "pageNumber": {
+          "PageNumber": {
             "type": "integer",
             "description": "if you use pagination for show list you can pass page number (optional)",
             "format": "int32",
             "nullable": true,
             "example": 1
           },
-          "pageSize": {
+          "PageSize": {
             "type": "integer",
             "description": "if you use pagination for show list you can pass page size (optional)",
             "format": "int32",
             "nullable": true,
             "example": 20
           },
-          "cabinClass": {
+          "CabinClass": {
             "$ref": "#/components/schemas/CabinClassRequest"
           }
         },
@@ -837,10 +858,10 @@
       "GetFlightsResponseDto": {
         "type": "object",
         "properties": {
-          "meta": {
+          "Meta": {
             "$ref": "#/components/schemas/FlightsMetaDto"
           },
-          "flights": {
+          "Flights": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FlightPackageDto"
@@ -852,46 +873,45 @@
       },
       "Level": {
         "enum": [
-          0,
-          1
+          "Info",
+          "Warning"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "PassengerFareDto": {
         "type": "object",
         "properties": {
-          "baseFare": {
+          "BaseFare": {
             "type": "integer",
             "format": "int32"
           },
-          "commission": {
+          "Commission": {
             "type": "integer",
             "format": "int32"
           },
-          "tax": {
+          "Tax": {
             "type": "integer",
             "format": "int32"
           },
-          "discount": {
+          "Discount": {
             "type": "integer",
             "format": "int32"
           },
-          "totalFare": {
+          "TotalFare": {
             "type": "integer",
             "format": "int32"
           },
-          "paxType": {
+          "PaxType": {
             "type": "string",
             "nullable": true
           },
-          "specialDiscountAllowed": {
+          "SpecialDiscountAllowed": {
             "type": "boolean"
           },
-          "serialize": {
+          "Serialize": {
             "type": "boolean"
           },
-          "discountPercent": {
+          "DiscountPercent": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -901,82 +921,81 @@
       },
       "PaxType": {
         "enum": [
-          0,
-          1,
-          2
+          "Adult",
+          "Child",
+          "Infant"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "PriceDto": {
         "type": "object",
         "properties": {
-          "url": {
+          "Url": {
             "type": "string",
             "nullable": true
           },
-          "uniqueId": {
+          "UniqueId": {
             "type": "string",
             "nullable": true
           },
-          "id": {
+          "Id": {
             "type": "string",
             "nullable": true,
             "writeOnly": true
           },
-          "proposalId": {
+          "ProposalId": {
             "type": "string",
             "nullable": true
           },
-          "capacity": {
+          "Capacity": {
             "type": "integer",
             "format": "int32"
           },
-          "discountToken": {
+          "DiscountToken": {
             "type": "string",
             "nullable": true
           },
-          "bookingClass": {
+          "BookingClass": {
             "type": "string",
             "nullable": true
           },
-          "passengerFares": {
+          "PassengerFares": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PassengerFareDto"
             },
             "nullable": true
           },
-          "baggage": {
+          "Baggage": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "baggageType": {
+          "BaggageType": {
             "$ref": "#/components/schemas/BaggageType"
           },
-          "cabinClass": {
+          "CabinClass": {
             "$ref": "#/components/schemas/CabinClassRequest"
           },
-          "fareRulesUrl": {
+          "FareRulesUrl": {
             "type": "string",
             "nullable": true
           },
-          "fareRules": {
+          "FareRules": {
             "type": "string",
             "nullable": true
           },
-          "cancellationTernEntities": {
+          "CancellationTernEntities": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CancellationTernEntity"
             },
             "nullable": true
           },
-          "isCharter": {
+          "IsCharter": {
             "type": "boolean"
           },
-          "ignorePriceLimit": {
+          "IgnorePriceLimit": {
             "type": "boolean"
           }
         },
@@ -984,34 +1003,34 @@
       },
       "RegisterInfoRequestDtoTHP": {
         "required": [
-          "billCode",
-          "mobile"
+          "BillCode",
+          "Mobile"
         ],
         "type": "object",
         "properties": {
-          "email": {
+          "Email": {
             "type": "string",
             "description": "Email address for get tickets (Optional)",
             "nullable": true,
             "example": "salam@mrbilit.com"
           },
-          "phone": {
+          "Phone": {
             "type": "string",
             "description": "Phone (home or work phone) (Optional)",
             "nullable": true,
             "example": "02161169000"
           },
-          "mobile": {
+          "Mobile": {
             "type": "string",
             "description": "Mobile",
             "example": "09xxxxxxxx"
           },
-          "billCode": {
+          "BillCode": {
             "type": "string",
             "description": "Bill code that recieve in create reserve step",
             "example": "1234567"
           },
-          "person": {
+          "Person": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RegisterPersonInfoRequestDtoTHP"
@@ -1024,7 +1043,7 @@
       "RegisterInfoResponseDtoTHP": {
         "type": "object",
         "properties": {
-          "billCode": {
+          "BillCode": {
             "type": "string",
             "nullable": true
           }
@@ -1033,61 +1052,61 @@
       },
       "RegisterPersonInfoRequestDtoTHP": {
         "required": [
-          "firstName",
-          "lastName"
+          "FirstName",
+          "LastName"
         ],
         "type": "object",
         "properties": {
-          "paxType": {
+          "PaxType": {
             "$ref": "#/components/schemas/PaxType"
           },
-          "nationality": {
+          "Nationality": {
             "type": "string",
             "description": "Nationality of person (For Iranian people, use IR)",
             "nullable": true,
             "example": "IR"
           },
-          "passportIssuer": {
+          "PassportIssuer": {
             "type": "string",
             "description": "Issues of passport if he/she is foreign (For Iranian people, it's not required)",
             "nullable": true,
             "example": ""
           },
-          "firstName": {
+          "FirstName": {
             "type": "string",
             "description": "First name",
             "example": "Mahdi"
           },
-          "lastName": {
+          "LastName": {
             "type": "string",
             "description": "Last name",
             "example": "kohestani"
           },
-          "birthDay": {
+          "BirthDay": {
             "type": "string",
             "description": "birthday (Optional for adults)",
             "format": "date-time",
             "nullable": true,
             "example": "1997-12-25"
           },
-          "isMale": {
+          "IsMale": {
             "type": "boolean",
             "description": "Is man?",
             "example": true
           },
-          "nationalCode": {
+          "NationalCode": {
             "type": "string",
             "description": "National code of Iranian people",
             "nullable": true,
             "example": "127xxxxxxx"
           },
-          "passportNumber": {
+          "PassportNumber": {
             "type": "string",
             "description": "passport number if he/she is foreign (For Iranian people, it's not required)",
             "nullable": true,
             "example": "H12346"
           },
-          "passportExpiration": {
+          "PassportExpiration": {
             "type": "string",
             "description": "Expiration date of passport if he/she is foreign (For Iranian people, it's not required)",
             "format": "date-time",
@@ -1099,40 +1118,40 @@
       },
       "ReserveFlightRequestTHP": {
         "required": [
-          "proposalId"
+          "ProposalId"
         ],
         "type": "object",
         "properties": {
-          "adultCount": {
+          "AdultCount": {
             "type": "integer",
             "description": "Number of adult passengers",
             "format": "int32",
             "example": 1
           },
-          "childCount": {
+          "ChildCount": {
             "type": "integer",
             "description": "Number of childers passengers (Childern: people who aged less than 12)",
             "format": "int32",
             "example": 0
           },
-          "infantCount": {
+          "InfantCount": {
             "type": "integer",
             "description": "Number of infant passengers (Infant: people who aged less than 2)",
             "format": "int32",
             "example": 0
           },
-          "proposalId": {
+          "ProposalId": {
             "type": "string",
             "description": "The ProposalId of price in list of flights",
             "example": "token"
           },
-          "discountToken": {
+          "DiscountToken": {
             "type": "string",
             "description": "The token that you recieve in list of flights (optional)",
             "nullable": true,
             "example": "token"
           },
-          "cabinClass": {
+          "CabinClass": {
             "$ref": "#/components/schemas/CabinClassRequest"
           }
         },
@@ -1141,10 +1160,10 @@
       "ReserveNote": {
         "type": "object",
         "properties": {
-          "level": {
+          "Level": {
             "$ref": "#/components/schemas/Level"
           },
-          "message": {
+          "Message": {
             "type": "string",
             "nullable": true
           }
@@ -1154,32 +1173,32 @@
       "ReserveResponse": {
         "type": "object",
         "properties": {
-          "billId": {
+          "BillId": {
             "type": "integer",
             "format": "int32"
           },
-          "billCode": {
+          "BillCode": {
             "type": "string",
             "nullable": true
           },
-          "itinerary": {
+          "Itinerary": {
             "$ref": "#/components/schemas/FlightPackageDto"
           },
-          "services": {
+          "Services": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Service"
             },
             "nullable": true
           },
-          "reserveNotes": {
+          "ReserveNotes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ReserveNote"
             },
             "nullable": true
           },
-          "international": {
+          "International": {
             "type": "boolean",
             "readOnly": true
           }
@@ -1189,10 +1208,10 @@
       "RouteInfoDto": {
         "type": "object",
         "properties": {
-          "origin": {
+          "Origin": {
             "$ref": "#/components/schemas/CityInfo"
           },
-          "destination": {
+          "Destination": {
             "$ref": "#/components/schemas/CityInfo"
           }
         },
@@ -1201,15 +1220,15 @@
       "Service": {
         "type": "object",
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "Description": {
             "type": "string",
             "nullable": true
           },
-          "cost": {
+          "Cost": {
             "type": "integer",
             "format": "int32"
           }
@@ -1219,119 +1238,64 @@
       "SuggestedServiceDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "from": {
+          "From": {
             "type": "string",
             "nullable": true
           },
-          "to": {
+          "To": {
             "type": "string",
             "nullable": true
           },
-          "fromId": {
+          "FromId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "toId": {
+          "ToId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "carrier": {
+          "Carrier": {
             "type": "string",
             "nullable": true
           },
-          "number": {
+          "Number": {
             "type": "string",
             "nullable": true
           },
-          "fromDate": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "toDate": {
+          "FromDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "title": {
+          "ToDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "price": {
+          "Price": {
             "type": "integer",
             "format": "int32"
           },
-          "description": {
+          "Description": {
             "type": "string",
             "nullable": true
           },
-          "unitTitle": {
+          "UnitTitle": {
             "type": "string",
             "nullable": true
           },
-          "needDescription": {
+          "NeedDescription": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TimeSpan": {
-        "type": "object",
-        "properties": {
-          "ticks": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "days": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "hours": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "milliseconds": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "minutes": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "seconds": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "totalDays": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
-          },
-          "totalHours": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
-          },
-          "totalMilliseconds": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
-          },
-          "totalMinutes": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
-          },
-          "totalSeconds": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
           }
         },
         "additionalProperties": false

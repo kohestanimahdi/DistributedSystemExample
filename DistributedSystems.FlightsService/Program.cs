@@ -13,6 +13,7 @@ namespace DistributedSystems.FlightsService
 
         public static void Main(string[] args)
         {
+
             int Port = 0;
 
             var GRPC_SERVER_PORT = Environment.GetEnvironmentVariable("GRPC_SERVER_PORT");

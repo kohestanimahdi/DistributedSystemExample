@@ -12,6 +12,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <OpenApiReference Include="flight-service.json" CodeGenerator="NSwagCSharp" Namespace="MrBilitFlightService" ClassName="MrBilitFlight" Link="OpenAPIs\flight-service.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.8.0" />
 		<PackageReference Include="Grpc" Version="2.23.0" />
 		<PackageReference Include="Grpc.Tools" Version="2.23.0" PrivateAssets="All" />
@@ -28,11 +32,5 @@
 
 	<ItemGroup>
 		<Protobuf Include="../flight.proto" Link="flight.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="MrBilitFlightService" ClassName="MrBilitFlight">
-			<SourceUri>https://flight-api.mrbilit.com/swagger/THP/swagger.json</SourceUri>
-		</OpenApiReference>
 	</ItemGroup>
 </Project>

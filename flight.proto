@@ -108,7 +108,7 @@ message GetFlightsResponse {
       repeated PASSENGERFARES passengerFares = 7;
        double baggage = 8;
        string baggageType = 9;
-       double cabinClass = 10;
+       string cabinClass = 10;
        string fareRulesUrl = 11;
        string fareRules = 12;
 

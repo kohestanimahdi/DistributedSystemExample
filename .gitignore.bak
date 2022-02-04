@@ -363,4 +363,3 @@ MigrationBackup/
 FodyWeavers.xsd
 /DistributedSystems.NotifierService/env
 /DistributedSystems.NotifierService/env3.10
-/DistributedSystems.NotifierService/appsettings.json

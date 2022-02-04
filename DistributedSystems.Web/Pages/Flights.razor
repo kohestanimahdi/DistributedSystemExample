@@ -1,10 +1,11 @@
 ﻿@page "/flights"
 
-@using System.Globalization
-@using Dtos.Requests;
+@using System.Text.RegularExpressions
+@using Dtos.Requests
 @using DistributedSystems.Web.Data
 @using DistributedSystems.Common.Utilities
 @inject grpcServices grpcServices
+@inject DistributedSystems.Common.Utilities.RedisMessagePassing messagePassing
 
 <h2>انتخاب سفر هوایی</h2>
 <hr />
@@ -25,7 +26,7 @@
                 <InputSelect id="OriginCode" @bind-Value="searchFlightRequest.OriginCode" class="form-select">
                     @foreach (var dept in airports.CityAirports.OrderBy(i => i.PersianTitle))
                     {
-                    <option value="@dept.Code">@dept.PersianTitle</option>
+                    <option value="@dept.Code">@Regex.Replace(dept.PersianTitle, @"\(.*\)","").Trim() </option>
                     }
             </InputSelect>
         </div>
@@ -38,7 +39,7 @@
                 <InputSelect id="DestinationCode" @bind-Value="searchFlightRequest.DestinationCode" class="form-select">
                     @foreach (var dept in airports.CityAirports.OrderBy(i => i.PersianTitle))
                     {
-                    <option value="@dept.Code">@dept.PersianTitle</option>
+                    <option value="@dept.Code">@Regex.Replace(dept.PersianTitle, @"\(.*\)","").Trim()</option>
                     }
             </InputSelect>
         </div>

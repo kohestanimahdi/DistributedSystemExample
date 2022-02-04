@@ -28,6 +28,7 @@ namespace DistributedSystems.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(option => new RedisMessagePassing(EnvirementVariableHelpers.GetValueAsString("REDIS_SERVER_HOST", "localhost")));
             services.AddRedisCache(EnvirementVariableHelpers.GetValueAsString("REDIS_SERVER_HOST", "localhost"), "RedisWebCache");
             services.AddRazorPages();
             services.AddServerSideBlazor();

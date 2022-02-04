@@ -1,3 +1,4 @@
+using CurrieTechnologies.Razor.SweetAlert2;
 using DistributedSystems.Common.Utilities;
 using DistributedSystems.Web.Configurations;
 using DistributedSystems.Web.Data;
@@ -33,6 +34,7 @@ namespace DistributedSystems.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<grpcServices>();
+            services.AddSweetAlert2();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

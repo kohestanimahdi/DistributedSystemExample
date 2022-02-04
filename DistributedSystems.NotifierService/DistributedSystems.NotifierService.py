@@ -3,37 +3,20 @@ import json
 import requests
 import os
 
-auth_token = ""
-notifier_url = ""
+bill_url = "https://bill.mrbilit.com/api/Bills/Coupons/FirstTime"
 redis_server = ""
 
 
-def sendSmsMessage(message):
-    dataMessage = json.loads(message)
-    text = ""
-    mobile = ""
-    if "mobile" in dataMessage:
-        mobile = dataMessage["mobile"]
-    elif "Mobile" in dataMessage:
-        mobile = dataMessage["Mobile"]
-    else:
-        raise ValueError("Message should contain Mobile")
 
-    if "Message" in dataMessage:
-        text = dataMessage["Message"]
-    elif "message" in dataMessage:
-        text = dataMessage["message"]
-    else:
-        raise ValueError("Message should contain Message")
+def lastMomentFlightRequest(request):
+    dataRequest = json.loads(request)
+    print(dataRequest)
 
-    print(mobile)
-    print(text)
     response = requests.post(
-        notifier_url,
-        json={"phoneNumber": mobile, "message": text},
-        headers={"Authorization": "Bearer " + auth_token},
-    )
-    print(response)
+        bill_url,
+        json=dataRequest)
+    print(response.status_code)
+
 
 
 def loadSettings():
@@ -43,12 +26,12 @@ def loadSettings():
     global notifier_url
     global auth_token
     global redis_server
+    global bill_url
     setting = json.loads(settingFile)
-    if "notifier" in setting:
-        if "url" in setting["notifier"]:
-            notifier_url = setting["notifier"]["url"]
-        if "token" in setting["notifier"]:
-            auth_token = setting["notifier"]["token"]
+
+    if "bill" in setting:
+        if "url" in setting["bill"]:
+            bill_url = setting["bill"]["url"]
 
     redis_server = os.getenv('REDIS_SERVER_HOST', 'localhost')
 
@@ -61,9 +44,9 @@ if __name__ == "__main__":
 
     while True:
         sub = r.pubsub()
-        sub.subscribe("SendSMSMessage")
+        sub.subscribe("LastMomentFlightRequest")
         for message in sub.listen():
             if message["type"] != "message":
                 continue
             print(message)
-            sendSmsMessage(message["data"])
+            lastMomentFlightRequest(message["data"])

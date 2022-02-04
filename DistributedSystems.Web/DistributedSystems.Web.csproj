@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.1.0" />
 		<PackageReference Include="DNTPersianComponents.Blazor" Version="1.2.4" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />

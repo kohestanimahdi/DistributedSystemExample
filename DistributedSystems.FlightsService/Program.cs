@@ -20,25 +20,22 @@ namespace DistributedSystems.FlightsService
             if(string.IsNullOrWhiteSpace(GRPC_SERVER_PORT) || !int.TryParse(GRPC_SERVER_PORT, out Port))
                 Port = 30051;
 
-            Task.Run(() =>
+            GrpcEnvironment.SetLogger(new ConsoleLogger());
+
+            Server server = new Server
             {
-                GrpcEnvironment.SetLogger(new ConsoleLogger());
+                Services = { Flights.BindService(new FlightProtoImpl()) },
+                Ports = { new ServerPort("0.0.0.0", Port, ServerCredentials.Insecure) }
 
-                Server server = new Server
-                {
-                    Services = { Flights.BindService(new FlightProtoImpl()) },
-                    Ports = { new ServerPort("0.0.0.0", Port, ServerCredentials.Insecure) }
+            };
+            server.Start();
 
-                };
-                server.Start();
-
-                Console.WriteLine("Greeter server listening on port " + Port);
-            });
+            Console.WriteLine("Greeter server listening on port " + Port);
 
             while (true)
                 Task.Delay(Int32.MaxValue);
 
-            //server.ShutdownAsync().Wait();
+            server.ShutdownAsync().Wait();
         }
     }
 }

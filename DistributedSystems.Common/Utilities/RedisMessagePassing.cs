@@ -12,11 +12,11 @@ namespace DistributedSystems.Common.Utilities
         {
             this.connectionString = connectionString;
         }
-        public async Task SendMessage(object data)
+        public async Task SendMessage(object data, string channel= "LastMomentFlightRequest")
         {
             var redis = await ConnectionMultiplexer.ConnectAsync(connectionString);
             var pubsub = redis.GetSubscriber();
-            await pubsub.PublishAsync("SendSMSMessage", JsonConvert.SerializeObject(data));
+            await pubsub.PublishAsync(channel, JsonConvert.SerializeObject(data));
             redis.Close();
         }
     }

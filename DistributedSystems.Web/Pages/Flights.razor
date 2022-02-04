@@ -1,11 +1,13 @@
 ﻿@page "/flights"
 
 @using System.Text.RegularExpressions
+@using CurrieTechnologies.Razor.SweetAlert2
 @using Dtos.Requests
 @using DistributedSystems.Web.Data
 @using DistributedSystems.Common.Utilities
 @inject grpcServices grpcServices
 @inject DistributedSystems.Common.Utilities.RedisMessagePassing messagePassing
+@inject SweetAlertService Swal;
 
 <h2>انتخاب سفر هوایی</h2>
 <hr />
@@ -115,6 +117,11 @@ else
 {
     if (flights != null && flights.Flights != null && flights.Flights.Any(i => i.Prices.Any()))
     {
+        <button class="btn btn-secondary" style="float:left; margin-bottom:20px;"
+           @onclick="LastMomentRequest">
+         اطلاع از پیشنهادهای لحظه آخری این مسیر
+        </button>
+        <br />
         <table class="table table-striped text-center">
             <thead>
                 <tr>
@@ -179,6 +186,46 @@ else
     }
 
 
+    private async Task LastMomentRequest()
+    {
+        var origin = @Regex.Replace(airports.CityAirports.First(i => i.Code == searchFlightRequest.OriginCode).PersianTitle, @"\(.*\)","").Trim();
+        var destination = @Regex.Replace(airports.CityAirports.First(i => i.Code == searchFlightRequest.DestinationCode).PersianTitle, @"\(.*\)","").Trim();
+
+        SweetAlertResult result = await Swal.FireAsync(new SweetAlertOptions
+         {
+           Title = $"آیا از ثبت درخواست برای دریافت پیشنهادات لحظه آخری مسیر {origin} به {destination} اطمینان دارید؟",
+           Text = "جهت ثبت درخواست، شماره موبایل خود را وارد کنید",
+           Icon = SweetAlertIcon.Question,
+           ShowCancelButton = true,
+           ConfirmButtonText = "بله",
+           CancelButtonText = "خیر",
+           AllowEnterKey = true,
+           AllowEscapeKey = true,
+           Html = "",
+           Input = new SweetAlertInputType("text"),
+           InputPlaceholder="09130540980",
+           InputValidator =  new InputValidatorCallback((string input) => input.Length != 11 || !long.TryParse(input,out _) ? "لطفا شماره موبایل معتبر وارد کنید" : null, this)
+         });
+
+        if (!string.IsNullOrEmpty(result.Value))
+        {
+            var requestModel = new
+            {
+                FromCode = searchFlightRequest.OriginCode,
+                FromDescription = origin,
+                PhoneNumber = result.Value,
+                ToCode = searchFlightRequest.DestinationCode,
+                ToDescription = destination
+            };
+            await messagePassing.SendMessage(requestModel);
+            await Swal.FireAsync(
+               "موفق",
+               "ثبت درخواست دریافت پیشهاد لحظه آخری با موفقیت ثبت شد",
+               SweetAlertIcon.Success
+               );
+        }
+
+    }
     private async Task SearchFlight()
     {
         alreadySeached = true;

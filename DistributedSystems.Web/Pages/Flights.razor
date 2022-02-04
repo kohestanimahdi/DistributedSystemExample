@@ -8,13 +8,15 @@
 
 <h2>انتخاب سفر هوایی</h2>
 <hr />
-<p>جهت انتخاب سفر خود، مبدا، مقصد و تاریخ پرواز خود را انتخاب کنید</p>
+
 
 <EditForm class="container" Model="searchFlightRequest">
     <DataAnnotationsValidator />
 
     @if (airports != null)
     {
+        <p>جهت انتخاب سفر خود، مبدا، مقصد و تاریخ پرواز خود را انتخاب کنید</p>
+
         <div class="form-group row m-1">
             <label for="firstName" class="col-sm-3 col-form-label">
                 مبدا
@@ -75,14 +77,24 @@
                 <InputNumber @bind-Value="searchFlightRequest.InfantCount" class="form-select"></InputNumber>
             </div>
         </div>
-    }
-    <br />
+
+        <br />
     <div class="form-group row m-1">
         <div class="col-sm-12 text-center">
             <button type="submit" class="btn btn-primary btn-md" @onclick="SearchFlight" disabled=@disableSeachButton>جستجو</button>
         </div>
 
-    </div>
+        </div>
+    }
+    else
+    {
+        <p>لطفا تا بارگذاری فرودگاه‌ها منتظر بمانید</p>
+        <div class="text-center">
+        <div class="spinner-border" role="status">
+        </div>
+        </div>
+    }
+
 
 </EditForm>
 <br />

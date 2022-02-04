@@ -14,9 +14,11 @@ namespace DistributedSystems.Web.Data
         private readonly IDistributedCache cache;
         private Flight.Flights.FlightsClient client;
 
+
         public grpcServices(IDistributedCache cache)
         {
-            Channel channel = new Channel("localhost:30051", ChannelCredentials.Insecure);
+            var channelAddress = $"{EnvirementVariableHelpers.GetValueAsString("GRPC_SERVER_HOST", "localhost")}:{EnvirementVariableHelpers.GetValueAsString("GRPC_SERVER_PORT", "30051")}";
+            Channel channel = new Channel(channelAddress, ChannelCredentials.Insecure);
 
             client = new Flight.Flights.FlightsClient(channel);
             this.cache = cache;
@@ -37,6 +39,7 @@ namespace DistributedSystems.Web.Data
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
 
             return null;

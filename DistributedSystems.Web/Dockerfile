@@ -5,6 +5,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+RUN apt update && apt install -y libc-dev
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["DistributedSystems.Web/DistributedSystems.Web.csproj", "DistributedSystems.Web/"]

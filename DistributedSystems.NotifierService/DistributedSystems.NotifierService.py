@@ -1,9 +1,11 @@
 import redis
 import json
 import requests
+import os
 
 auth_token = ""
 notifier_url = ""
+redis_server = ""
 
 
 def sendSmsMessage(message):
@@ -40,6 +42,7 @@ def loadSettings():
 
     global notifier_url
     global auth_token
+    global redis_server
     setting = json.loads(settingFile)
     if "notifier" in setting:
         if "url" in setting["notifier"]:
@@ -47,11 +50,14 @@ def loadSettings():
         if "token" in setting["notifier"]:
             auth_token = setting["notifier"]["token"]
 
+    redis_server = os.getenv('REDIS_SERVER_HOST', 'localhost')
+
+    
 
 if __name__ == "__main__":
     loadSettings()
 
-    r = redis.Redis(host="localhost", port=6379, db=0, encoding="utf-8")
+    r = redis.Redis(host=redis_server, port=6379, db=0, encoding="utf-8")
 
     while True:
         sub = r.pubsub()

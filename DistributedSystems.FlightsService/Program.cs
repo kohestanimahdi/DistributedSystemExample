@@ -9,37 +9,35 @@ namespace DistributedSystems.FlightsService
 {
     internal class Program
     {
-        const int Port = 30051;
+
 
         public static void Main(string[] args)
         {
-            try
+            int Port = 0;
+
+            var GRPC_SERVER_PORT = Environment.GetEnvironmentVariable("GRPC_SERVER_PORT");
+            if(string.IsNullOrWhiteSpace(GRPC_SERVER_PORT) || !int.TryParse(GRPC_SERVER_PORT, out Port))
+                Port = 30051;
+
+            Task.Run(() =>
             {
                 GrpcEnvironment.SetLogger(new ConsoleLogger());
 
                 Server server = new Server
                 {
                     Services = { Flights.BindService(new FlightProtoImpl()) },
-                    Ports = { new ServerPort("0.0.0.0", Port, ServerCredentials.Insecure),
-                        new ServerPort("127.0.0.1", Port + 1, ServerCredentials.Insecure) ,
-                        new ServerPort("localhost", Port + 2, ServerCredentials.Insecure) }
+                    Ports = { new ServerPort("0.0.0.0", Port, ServerCredentials.Insecure) }
 
                 };
                 server.Start();
 
                 Console.WriteLine("Greeter server listening on port " + Port);
-                Console.WriteLine("Press any key to stop the server...");
+            });
 
-                while (true)
-                    Task.Delay(Int32.MaxValue);
+            while (true)
+                Task.Delay(Int32.MaxValue);
 
-                server.ShutdownAsync().Wait();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            //server.ShutdownAsync().Wait();
         }
     }
 }

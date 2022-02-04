@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>DistributedSystems.NotifierService</Name>
     <RootNamespace>DistributedSystems.NotifierService</RootNamespace>
-    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env3.10|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,6 +33,15 @@
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Interpreter Include="env3.10\">
+      <Id>env3.10</Id>
+      <Version>0.0</Version>
+      <Description>env3.10 (Python 3.10 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
     <Interpreter Include="env\">
       <Id>env</Id>
       <Version>3.9</Version>

@@ -1,3 +1,4 @@
+using DistributedSystems.Common.Utilities;
 using DistributedSystems.Web.Configurations;
 using DistributedSystems.Web.Data;
 using Microsoft.AspNetCore.Builder;
@@ -27,10 +28,10 @@ namespace DistributedSystems.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRedisCache(Configuration.GetConnectionString("Redis"), "RedisWebCache");
+            services.AddRedisCache(EnvirementVariableHelpers.GetValueAsString("REDIS_SERVER_HOST", "localhost"), "RedisWebCache");
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<grpcServices>();
+            services.AddScoped<grpcServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

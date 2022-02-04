@@ -28,7 +28,9 @@
     <Content Include="..\.dockerignore">
       <Link>.dockerignore</Link>
     </Content>
-    <Content Include="appsettings.json" />
+    <Content Include="appsettings.json">
+      <Publish>True</Publish>
+    </Content>
     <Content Include="Dockerfile" />
     <Content Include="requirements.txt" />
   </ItemGroup>
